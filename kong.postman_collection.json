@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "3cd061a7-8ddd-498b-a9a1-f0f05d284793",
+		"name": "kong",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "retailer-service",
+							"type": "text"
+						},
+						{
+							"key": "url",
+							"value": "http://mockbin.org/bin/32438d34-650a-400c-85fe-da10d1c7894a",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/services/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register service route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "hosts[]",
+							"value": "example.com",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "paths[]",
+							"value": "/retailer",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/services/retailer-service/routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"retailer-service",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register plugin for service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "jwt-keycloak",
+							"type": "text"
+						},
+						{
+							"key": "config.allowed_iss",
+							"value": "https://keycloak:9443/auth/realms/TAFT",
+							"type": "text"
+						},
+						{
+							"key": "config.realm_roles",
+							"value": "retailer",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/services/retailer-service/plugins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"retailer-service",
+						"plugins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get service plugins",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "rate-limiting",
+							"type": "text"
+						},
+						{
+							"key": "config.minute",
+							"value": "10",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/services/example-service/plugins/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"example-service",
+						"plugins",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update plugin for service",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "jwt-keycloak",
+							"type": "text"
+						},
+						{
+							"key": "config.allowed_iss",
+							"value": "https://keycloak-taft-dev.apps.lab.openshift.aot-technologies.com/auth/realms/taft",
+							"type": "text"
+						},
+						{
+							"key": "config.realm_roles",
+							"value": "retailer",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/services/retailer-service/plugins/377e0fdd-593c-43d3-b1e5-f931bb60bb7b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"retailer-service",
+						"plugins",
+						"377e0fdd-593c-43d3-b1e5-f931bb60bb7b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cors plugin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "cors",
+							"type": "text"
+						},
+						{
+							"key": "config.origins",
+							"value": "http://localhost:4200/,http://localhost:4201/",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/plugins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"plugins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cors plugin update",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "cors",
+							"type": "text"
+						},
+						{
+							"key": "config.origins[]",
+							"value": "http://localhost:4200/,http://localhost:4201/",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8001/plugins/53ab7c70-860c-4e09-97be-0a5cc4a4cf9a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"plugins",
+						"53ab7c70-860c-4e09-97be-0a5cc4a4cf9a"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
