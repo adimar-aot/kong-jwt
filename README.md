@@ -20,3 +20,14 @@
 
 * *Create Keycloak admin user*  
 `docker exec keycloak /opt/jboss/keycloak/bin/add-user-keycloak.sh -u admin -p admin`
+
+
+### Register sample API
+
+*The Postman [collection](kong.postman_collection.json) contains some endpoints that can be used as reference to register an API in Kong using the JWT Plugin*  
+You will need to:  
+* Create the service  
+* Register the service route  
+* Register the JWT plugin for the service  
+  
+> The values used in the body of the requests are only for my local environment, replace them acording to your needs
